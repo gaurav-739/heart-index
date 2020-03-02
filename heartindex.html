@@ -1,0 +1,160 @@
+<html >
+<!--From https://codepen.io/frytyler/pen/EGdtg-->
+<head>
+ <style>body{
+    background-image: url("https://media.boingboing.net/wp-content/uploads/2018/04/tumblr_static__640_v2.gif");
+     
+    
+   background-repeat: no-repeat;
+  background-size: 1600px 1600px;
+    
+   
+    padding:0;
+    margin:0;
+}
+.button {
+  border-radius: 4px;
+  background-color: #f4511e;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 28px;
+  padding: 20px;
+  width: 200px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button:hover span {
+  padding-right: 25px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+$primary: #11998e
+$secondary: #38ef7d;
+$white: #fff;
+$gray: white;
+.form__group {
+  position: relative;
+  padding: 15px 0 0;
+  margin-top: 10px;
+  width: 50%;
+}
+
+.form__field {
+  font-family: inherit;
+  width: 105;
+  color: #00ff00;
+  border: 0;
+  border-bottom: 2px solid $gray;
+  outline: 0;
+  font-size: 1.6rem;
+  color: $white;
+  padding: 7px 0;
+  background: transparent;
+  transition: border-color 0.2s;
+
+  &::placeholder {
+    color: transparent;
+  }
+
+  &:placeholder-shown ~ .form__label {
+    font-size: 1.3rem;
+    cursor: text;
+    top: 20px;
+  }
+}
+
+.form__label {
+  position: absolute;
+  top: 0;
+  display: block;
+  transition: 0.2s;
+  font-size: 1rem;
+  color: $gray;
+}
+
+.form__field:focus {
+  ~ .form__label {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 1rem;
+    color: $primary;
+    font-weight:700;    
+  }
+  padding-bottom: 6px;  
+  font-weight: 700;
+  border-width: 3px;
+  border-image: linear-gradient(to right, $primary,$secondary);
+  border-image-slice: 1;
+}
+/* reset input */
+.form__field{
+  &:required,&:invalid { box-shadow:none; }
+}
+/* demo */
+body {
+  font-family: 'Poppins', sans-serif; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-size: 1.5rem;
+  background-color:$white;
+}
+</style>
+</head>
+
+<body>
+ <div class="login">
+    <h1>Predict heart condition</h1>
+
+     <!-- Main Input For Receiving Query to our ML -->
+    <form action="{{ url_for('predict')}}"method="post">
+        AGE:<input type="number" name="AGE" class="form__field" placeholder="AGE" required="required" />
+         SEX:<input type="number" name="SEX" class="form__field" placeholder="SEX" required="required" />
+         CP:<input type="number" name=" CP" class="form__field" placeholder=" CP" required="required" />
+         TRESTBPS:<input type="number" name="TRESTBPS" class="form__field" placeholder="TRESTBPS" required="required" />
+         CHOL:<input type="number" name="CHOL" class="form__field" placeholder="CHOL" required="required" />
+         FBS:<input type="number" name="FBS" class="form__field" placeholder="FBS" required="required" />
+         RESTECG:<input type="number" name="RESTECG" class="form__field" placeholder="RESTECG" required="required" />
+         THALACH:<input type="number" name="THALACH" class="form__field" placeholder="THALACH" required="required" />
+         EXANG:<input type="number" name="EXANG" class="form__field" placeholder="EXANG" required="required" />
+         OLDPEAK:<input type="number" name="OLDPEAK" class="form__field" placeholder="OLDPEAK" required="required" />
+         SLOPE:<input type="number" name="SLOPE" class="form__field" placeholder="SLOPE" required="required" />
+         CA:<input type="number" name="CA" class="form__field" placeholder="CA" required="required" />
+         THAL:<input type="number" name="THAL" class="form__field" placeholder="THAL" required="required" />
+	
+
+
+        <button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
+    </form>
+
+   <br>
+   <br>
+   {{ prediction_text }}
+
+ </div>
